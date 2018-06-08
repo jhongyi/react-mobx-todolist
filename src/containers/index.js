@@ -4,6 +4,7 @@ import moment from 'moment';
 import { observer } from 'mobx-react';
 import { InputGroup, Input } from 'reactstrap';
 
+import Header from './Header';
 import EditorTask from './EditorTask';
 import TaskList from './TaskList';
 import ToDoListStore from './ToDoListStore';
@@ -17,59 +18,6 @@ const Div = styled.div`
   width: 100%;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #4A90E2;
-  height: 3rem;
-  width: 60rem;
-  min-width: 40rem;
-  max-width: 80rem;
-  div {
-    width: 100%;
-    padding 0;
-    text-align: center;
-  }
-  ul {
-    margin: 0 auto;
-    padding: 0;
-  }
-  ul li {
-    display: inline;
-    text-align: center;
-  }
-
-  a {
-    display: inline-block;
-    width: 30%;
-    padding: .75rem 0;
-    margin: 0;
-    text-decoration: none;
-    color: #333;
-    &:hover {
-      color: #fff;
-    }
-  }
-
-  .progressd:hover ~ hr {
-    margin-left: calc(100% / 3);
-  }
-
-  .completed:hover ~ hr {
-    margin-left: calc(100% / 3 * 2);
-  }
-
-  hr {
-    height: .35rem;
-    width: calc(100% / 3);
-    margin: 0;
-    background: #00408B;
-    border: none;
-    transition: .3s ease-in-out;
-  }
-`;
-
 const Content = styled.div`
   background: #E1E1E1;
   width: 60rem;
@@ -77,6 +25,7 @@ const Content = styled.div`
   max-width: 80rem;
   height: calc(100vh - 81px);
   text-align: center;
+  overflow-y: scroll;
 `;
 
 const EditorDiv = styled.div`
@@ -116,16 +65,7 @@ export default class Main extends Component {
   render() {
     return (
       <Div>
-        <Header>
-          <div>
-            <ul>
-              <li className="tasks"><a href="#/ToDoList">MyTasks</a></li>
-              <li className="progressd"><a href="#/ToDoList">In Progress</a></li>
-              <li className="completed"><a href="#/ToDoList">Completed</a></li>
-              <hr />
-            </ul>
-          </div>
-        </Header>
+        <Header store={ToDoListStore} />
         <Content>
           <EditorDiv>
             {

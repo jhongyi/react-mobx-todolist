@@ -3,12 +3,16 @@ import _ from 'lodash';
 
 class ToDoListStore {
   @observable tasks = [];
+  @observable tasktab = 'mytasks';
+
+  switchTaskTab = (tasktab) => {
+    this.tasktab = tasktab;
+  }
   addTask = (task) => {
     this.tasks = [
       ...this.tasks,
       task
     ]
-    // this.tasks.push(task);
     this.sortingTask();
   }
   editTask = (editTask) => {

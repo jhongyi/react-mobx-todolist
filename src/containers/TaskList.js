@@ -99,11 +99,23 @@ class TaskList extends Component {
   }
 
   render() {
-    const { tasks } = this.props.store;
+    const { tasks, tasktab } = this.props.store;
+    let filterTasks = tasks;
+    switch (tasktab) {
+      case 'mytasks': break;
+      case 'inprogress':
+        filterTasks = filterTasks.filter((task) => !task.complete);
+        break;
+      case 'completed':
+        filterTasks = filterTasks.filter((task) => task.complete);
+        break;
+      default: break;
+    }
+
     return (
       <ListDiv>
         {
-          tasks.map((task, index) => {
+          filterTasks.map((task, index) => {
             return (
               this.props.showEditorTask && this.state.editTask === task.uuid
                 ?
@@ -141,9 +153,9 @@ class TaskList extends Component {
           })
         }
         {
-          tasks.length > 0 &&
+          filterTasks.length > 0 &&
           <div className="task-stat">
-            {this.getRemainTask(tasks)}{' '}tasks left
+            {this.getRemainTask(filterTasks)}{' '}tasks left
           </div>
         }
       </ListDiv>
